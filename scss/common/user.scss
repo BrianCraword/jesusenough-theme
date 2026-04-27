@@ -1,0 +1,97 @@
+// ============================
+// Avatars — round, with optional gradient ring in topic feeds
+// ============================
+img.avatar,
+.card-avatar-placeholder,
+.placeholder-avatar {
+  border-radius: var(--d-avatar-border-radius);
+}
+
+// Gradient ring on avatars in the topic feed.
+// Note: in Phase A this targets Air's stock topic-list-item, where the
+// avatar lives in the "posters" column. Phase B introduces our own
+// tli-top-section component which will position the avatar differently;
+// this rule will continue to work via the same selector.
+.topic-list-item .avatar,
+.latest-topic-list-item .avatar {
+  padding: 2px;
+  background: var(--je-gradient-love);
+  box-shadow: 0 4px 12px rgba(255, 77, 109, 0.2);
+}
+
+// ============================
+// User profile (the /u/<username>/* pages)
+// ============================
+.user-main {
+  .about {
+    border-radius: var(--d-default-border-radius);
+
+    .details {
+      @include je-card;
+      padding: 1em;
+      border: none;
+    }
+
+    .secondary {
+      padding: 0.5em;
+      border: 1px solid var(--primary-low);
+      border-radius: var(--d-default-border-radius);
+      margin-top: 0.25em;
+    }
+  }
+}
+
+// ============================
+// Username @-prefix decoration
+// ============================
+.name-and-date .username,
+h2.username,
+.names .username a {
+  &:before {
+    content: '@';
+  }
+}
+
+// ============================
+// User card popover (hover/click on avatars)
+// ============================
+.user-card,
+.group-card {
+  border-radius: var(--d-default-border-radius);
+
+  &.show,
+  &.no-bg {
+    .card-content {
+      border-radius: var(--d-default-border-radius);
+      border: 1px solid var(--primary-low);
+    }
+  }
+}
+
+#user-card {
+  .metadata > div {
+    display: inline-flex;
+    border-radius: var(--d-default-border-radius);
+    margin: 0.25em 0;
+    padding: 0.25em 0.5em;
+    border: 1px solid var(--primary-low-mid);
+
+    &:empty { display: none; }
+  }
+}
+
+// ============================
+// Badges
+// ============================
+.user-badge {
+  border-radius: var(--d-default-border-radius);
+}
+
+.badge-card {
+  @include je-card;
+
+  .favorite-btn {
+    box-shadow: 0 0 0 1px var(--primary-low);
+    border-radius: var(--d-default-border-radius);
+  }
+}

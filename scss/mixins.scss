@@ -1,0 +1,40 @@
+// SCSS mixins for the Jesus Enough theme.
+
+// Soft white card with subtle elevation — the workhorse surface.
+// Used by topic posts, user profile blocks, kanban, badge cards, etc.
+@mixin je-card {
+  background: var(--je-card-bg);
+  border: 1px solid rgba(255, 77, 109, 0.06);
+  border-radius: var(--d-default-border-radius);
+  box-shadow: var(--je-elevation-subtle);
+}
+
+// Frosted-glass surface for floating elements (header, sidebar, banner).
+// $alpha controls opacity, $blur controls backdrop blur intensity.
+@mixin je-glass($alpha: 0.85, $blur: 25px) {
+  background: rgba(255, 255, 255, $alpha);
+  backdrop-filter: blur($blur) saturate(200%);
+  -webkit-backdrop-filter: blur($blur) saturate(200%);
+}
+
+// Living gradient text with a slow shimmer animation.
+// Used by the welcome banner title and other hero typography.
+@mixin je-gradient-text($gradient: var(--je-gradient-living)) {
+  background: $gradient;
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: je-shimmer 6s linear infinite;
+}
+
+// Brand-tinted focus ring used on inputs and select-kit headers.
+@mixin je-focus {
+  outline: none;
+  box-shadow: 0 0 0 1px var(--je-accent-primary);
+}
+
+@keyframes je-shimmer {
+  to { background-position: 200% center; }
+}

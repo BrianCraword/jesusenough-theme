@@ -1,0 +1,86 @@
+// Polish for Discourse plugins. Each rule is a no-op when the plugin
+// isn't installed, so it's safe to leave them all in.
+
+// ============================
+// Discourse Chat
+// ============================
+html.has-full-page-chat #main-outlet .full-page-chat {
+  background: var(--secondary);
+}
+
+.dc-filter-input-container,
+.channel-members-view__search-input-container {
+  border-radius: var(--d-input-border-radius);
+
+  &.is-focused {
+    @include je-focus;
+  }
+}
+
+.dc-filter-input-container .dc-filter-input,
+input.channel-members-view__search-input {
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+// Chat icon in the header — active state
+.header-dropdown-toggle.open-chat .icon.active {
+  background: var(--tertiary-low);
+  border-radius: 50px;
+
+  .d-icon-comment {
+    color: var(--je-accent-primary);
+  }
+}
+
+// ============================
+// Discourse Docs
+// ============================
+.docs:not(.nav-item_docs) {
+  background: var(--secondary);
+  padding: 0.5em;
+  border-radius: var(--d-default-border-radius);
+  margin-bottom: 2em;
+}
+
+.docs-search {
+  border-radius: var(--d-default-border-radius);
+}
+
+// ============================
+// Discourse Kanban
+// ============================
+.discourse-kanban:not(:empty) {
+  margin-bottom: 16px;
+  padding: 1em;
+  @include je-card;
+
+  &.fullscreen {
+    border-radius: 0;
+    padding: 0;
+    margin-bottom: 0;
+  }
+}
+
+// ============================
+// Voting / poll-builder polish
+// ============================
+.vote-count-wrapper,
+.voting-popup-menu {
+  border-radius: var(--d-default-border-radius);
+}
+
+.poll-ui-builder .poll-type .poll-type-value {
+  padding: 6px;
+  border-radius: var(--d-button-border-radius);
+}
+
+// ============================
+// Solved — accepted-text pill
+// (the green accepted-answer quote is in topic.scss)
+// ============================
+.post-controls .extra-buttons .accepted-text {
+  color: var(--primary-high);
+  border-radius: var(--d-button-border-radius);
+}

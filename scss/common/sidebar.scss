@@ -1,0 +1,156 @@
+// ============================
+// Glass sidebar — frosted floating dock on the left
+//
+// Selector matches Air's `#main-outlet-wrapper .sidebar-wrapper` specificity
+// (0,1,1,0) so we tie on specificity and win on later cascade order.
+// Without the #main-outlet-wrapper prefix, Air's rule overrides our
+// border-radius and background, leaving the glass invisible.
+// ============================
+#main-outlet-wrapper .sidebar-wrapper,
+#main-outlet-wrapper .d-sidebar {
+  @include je-glass(0.65, 30px);
+  border: 1px solid rgba(255, 77, 109, 0.08);
+  border-radius: 32px;
+  margin: 20px 10px 20px 20px;
+  padding: 24px 8px;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+  height: calc(100vh - 110px);
+}
+
+// ============================
+// Sidebar links — pill rows with translate-X hover
+// ============================
+.sidebar-section-link-wrapper .sidebar-section-link {
+  padding: 12px 16px;
+  margin: 4px 12px;
+  border-radius: 16px;
+  background: transparent;
+  color: var(--je-text-main);
+  font-family: var(--je-font-ui);
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  &:hover {
+    background: #FFFFFF;
+    transform: translateX(8px);
+    box-shadow: var(--je-elevation-subtle);
+    color: var(--je-accent-primary);
+
+    .d-icon {
+      color: var(--je-accent-primary);
+    }
+
+    .sidebar-section-link-prefix.icon {
+      transform: scale(1.15) rotate(5deg);
+      filter: brightness(1.1);
+    }
+  }
+
+  // Active link: white card + accent text + icon-tile pulse.
+  // We deliberately keep the per-link icon-tile colors below — the active
+  // state should still feel like "the brand version of this link," not
+  // wash everything pink.
+  &.active {
+    background: #FFFFFF;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(255, 77, 109, 0.1);
+    transform: translateX(8px);
+
+    .sidebar-section-link-content-text {
+      color: var(--je-accent-primary);
+      font-weight: 700;
+    }
+
+    .sidebar-section-link-prefix.icon {
+      transform: scale(1.05);
+    }
+  }
+}
+
+// ============================
+// Section headers (CATEGORIES / CHANNELS / DMS)
+// ============================
+.sidebar-section-header-text {
+  color: var(--je-accent-secondary);
+  font-family: var(--je-font-heading);
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  font-size: 0.75rem;
+  padding-left: 16px;
+  margin-top: 24px;
+  margin-bottom: 12px;
+  opacity: 0.9;
+}
+
+// ============================
+// Per-link colored icon tiles
+// Targets stock Discourse [data-link-name] hooks so this works on any theme.
+// ============================
+.sidebar-section-link-prefix.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  margin-right: 12px;
+  background: rgba(100, 100, 100, 0.05);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  .d-icon {
+    margin: 0;
+    font-size: 14px;
+    color: var(--je-text-main);
+  }
+}
+
+.sidebar-section-link {
+  &[data-link-name="my-posts"] .sidebar-section-link-prefix.icon {
+    background: rgba(45, 136, 255, 0.12);
+    .d-icon { color: #2D88FF; }
+  }
+
+  &[data-link-name="messages"] .sidebar-section-link-prefix.icon,
+  &[data-link-name="my-messages"] .sidebar-section-link-prefix.icon,
+  &[data-link-name*="messages"] .sidebar-section-link-prefix.icon {
+    background: rgba(30, 215, 96, 0.12);
+    .d-icon { color: #1ED760; }
+  }
+
+  &[data-link-name="review"] .sidebar-section-link-prefix.icon {
+    background: rgba(255, 77, 109, 0.12);
+    .d-icon { color: var(--je-accent-primary); }
+  }
+
+  &[data-link-name="admin"] .sidebar-section-link-prefix.icon {
+    background: rgba(100, 110, 120, 0.15);
+    .d-icon { color: #646E78; }
+  }
+
+  &[data-link-name="invite"] .sidebar-section-link-prefix.icon {
+    background: rgba(114, 9, 183, 0.12);
+    .d-icon { color: var(--je-accent-tertiary); }
+  }
+
+  &[data-link-name="ai-bot"] .sidebar-section-link-prefix.icon {
+    background: rgba(0, 206, 209, 0.12);
+    .d-icon { color: #00CED1; }
+  }
+
+  &[data-link-name="more"] .sidebar-section-link-prefix.icon {
+    background: rgba(200, 200, 200, 0.15);
+    .d-icon { color: #A0A0A0; }
+  }
+
+  &[data-link-name="categories"] .sidebar-section-link-prefix.icon {
+    background: rgba(255, 77, 109, 0.12);
+    .d-icon { color: var(--je-accent-primary); }
+  }
+
+  &[data-link-name="channels"] .sidebar-section-link-prefix.icon {
+    background: rgba(255, 158, 0, 0.12);
+    .d-icon { color: var(--je-accent-secondary); }
+  }
+}

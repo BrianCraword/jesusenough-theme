@@ -1,0 +1,23 @@
+// ============================
+// Desktop layout polish
+// ============================
+
+// Mirror FKB Pro's main-outlet padding so the floating header/sidebar
+// have breathing room.
+#main-outlet-wrapper {
+  padding: 0 1em;
+}
+
+#main-outlet {
+  padding-top: 2em;
+}
+
+// Constrain topic body width on wide screens for comfortable reading.
+.topic-body {
+  width: calc(690px + (11px * 2));
+}
+
+// Suggested-topics container shouldn't be unnaturally narrow.
+.more-topics__container {
+  max-width: 100%;
+}

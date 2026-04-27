@@ -1,0 +1,141 @@
+// ============================
+// Inputs — focus ring, rounded textareas
+// ============================
+input,
+select,
+input[type] {
+  &:focus {
+    @include je-focus;
+  }
+}
+
+textarea,
+.d-editor-textarea-wrapper {
+  border-radius: var(--d-default-border-radius);
+}
+
+.d-editor-textarea-wrapper textarea {
+  border-radius: 0 0 var(--d-default-border-radius) var(--d-default-border-radius);
+}
+
+.d-editor-textarea-wrapper.in-focus {
+  @include je-focus;
+}
+
+// ============================
+// In-page search inputs (header search dropdown, full-page search)
+// Welcome-banner search has its own treatment in welcome-banner.scss.
+// ============================
+.search-input-wrapper input,
+.fps-search input {
+  background: #FFFFFF;
+  border: 1px solid rgba(255, 77, 109, 0.1);
+  border-radius: var(--d-input-border-radius);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  padding: 16px 24px;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+
+  &:focus {
+    border-color: var(--je-accent-primary);
+    box-shadow: 0 8px 25px rgba(255, 77, 109, 0.15);
+    transform: scale(1.01);
+  }
+}
+
+// ============================
+// Select-kit (dropdowns, multi-selects)
+// ============================
+.select-kit {
+  .select-kit-header:not(.btn) {
+    padding-left: 0.65em;
+    padding-right: 0.65em;
+  }
+
+  &.is-expanded {
+    .select-kit-header,
+    .select-kit-wrapper .multi-select-header {
+      @include je-focus;
+    }
+    .select-kit-body {
+      overflow: auto;
+      border-radius: var(--d-select-body-border-radius);
+      border: 1px solid var(--primary-low);
+    }
+  }
+
+  &.multi-select {
+    border-radius: var(--d-input-border-radius);
+
+    .multi-select-header {
+      border-radius: var(--d-input-border-radius);
+
+      &.is-focused,
+      &:focus {
+        @include je-focus;
+      }
+    }
+
+    .choices .choice {
+      border-radius: var(--d-select-body-border-radius);
+    }
+  }
+
+  &.combo-box .select-kit-header.is-focused {
+    @include je-focus;
+  }
+}
+
+// ============================
+// Composer (reply-control)
+// ============================
+#reply-control {
+  border-radius: var(--d-default-border-radius) var(--d-default-border-radius) 0 0;
+
+  #reply-title {
+    &:focus { @include je-focus; }
+
+    div.ac-wrap {
+      border-radius: var(--d-default-border-radius);
+    }
+  }
+}
+
+.grippie {
+  border-radius: var(--d-default-border-radius) var(--d-default-border-radius) 0 0;
+}
+
+// ============================
+// Modals — generic
+// ============================
+.dialog-content,
+.d-modal__container {
+  border-radius: var(--d-default-border-radius);
+  outline: 0;
+}
+
+.mobile-view .d-modal__container {
+  border-radius: var(--d-default-border-radius) var(--d-default-border-radius) 0 0;
+}
+
+.modal.has-tabs .modal-tabs .modal-tab {
+  border-radius: var(--d-default-border-radius);
+}
+
+// ============================
+// Login / signup modals
+// ============================
+.login-modal,
+.d-modal.create-account .d-modal__body {
+  border-radius: var(--d-default-border-radius);
+}
+
+.login-modal:not(.hidden) #login-form .input-group input,
+.d-modal.create-account .login-form .input-group input,
+.invites-show .invite-form .input-group input {
+  border-radius: var(--d-input-border-radius);
+}
+
+.login-modal:not(.hidden) #login-form .input-group {
+  width: 100%;
+}

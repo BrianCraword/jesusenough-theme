@@ -1,0 +1,200 @@
+// ============================
+// Topic detail — posts wrapped as cards
+// ============================
+.topic-body {
+  @include je-card;
+  padding: 12px;
+  margin-left: 1em;
+  border-top: none;
+
+  @media screen and (max-width: 834px) {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+.topic-post article#post_1 .row:first-of-type {
+  padding-top: 0;
+}
+
+// Embedded posts (reply-from / replies-to expanded inline) shouldn't get
+// the card chrome — they're nested inside an existing post.
+.embedded-posts {
+  &.top, &.bottom {
+    .row {
+      padding: 0;
+
+      .topic-body {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 12px 0 0 0;
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+// ============================
+// Post controls (Like, Reply, edit/delete, …)
+// ============================
+.topic-post nav.post-controls .actions button {
+  color: var(--primary-high);
+  padding: 10px;
+  border-radius: var(--d-button-border-radius);
+  max-height: 37px;
+
+  &.no-text { max-width: 37px; }
+
+  &.toggle-like:not(.my-likes) .d-icon {
+    color: var(--love);
+  }
+
+  .d-icon,
+  .d-button-label {
+    color: var(--primary-high);
+    pointer-events: none;
+  }
+}
+
+// Reactions plugin — pill double-button
+.discourse-reactions-double-button {
+  border-radius: var(--d-button-border-radius);
+
+  &:hover, &:focus {
+    background: var(--primary-low);
+  }
+}
+
+// ============================
+// Quotes / blockquotes — pink left border
+// ============================
+aside.quote {
+  .title {
+    border-left: 5px solid var(--je-accent-primary);
+    border-radius: var(--d-default-border-radius) var(--d-default-border-radius) 0 0;
+    overflow: hidden;
+  }
+
+  blockquote {
+    border-left: 5px solid var(--je-accent-primary);
+  }
+
+  .title + blockquote {
+    border-radius: 0 0 var(--d-default-border-radius) var(--d-default-border-radius);
+  }
+}
+
+blockquote {
+  border-left: 5px solid var(--je-accent-primary);
+  border-radius: var(--d-default-border-radius);
+}
+
+.quote-controls,
+.quote-controls .d-icon {
+  color: var(--je-accent-primary);
+}
+
+// ============================
+// Solved-quote (Discourse Solved plugin) — green title bar
+// ============================
+aside.quote.accepted-answer {
+  > .title {
+    padding: 12px;
+    background: green;
+    border: 3px solid green;
+    border-bottom: 0;
+    color: #fff;
+
+    a,
+    span.by a,
+    .quote-controls .d-icon,
+    .fa.accepted {
+      color: #fff;
+    }
+
+    a { text-decoration: underline; }
+  }
+
+  > blockquote {
+    border: 3px solid green;
+  }
+}
+
+// ============================
+// Onebox / lightbox / inline media
+// ============================
+aside.onebox,
+blockquote aside.onebox {
+  border: 1px solid var(--je-accent-primary);
+  background: rgba(255, 77, 109, 0.04);
+  border-radius: var(--d-default-border-radius);
+}
+
+.cooked,
+.d-editor-preview {
+  img:not(.thumbnail):not(.site-icon):not(.avatar):not(.emoji):not(.ytp-thumbnail-image) {
+    border-radius: var(--d-default-border-radius);
+  }
+}
+
+.discourse-no-touch a.lightbox {
+  border-radius: var(--d-default-border-radius);
+
+  &:hover {
+    border-radius: var(--d-default-border-radius);
+  }
+}
+
+.lightbox-wrapper .meta {
+  border-radius: 0 0 var(--d-default-border-radius) var(--d-default-border-radius);
+}
+
+.onebox.video-onebox,
+.video-container {
+  background: #000;
+  border-radius: var(--d-default-border-radius);
+
+  video {
+    border-radius: var(--d-default-border-radius);
+  }
+}
+
+.lazyYT-container {
+  border-radius: var(--d-default-border-radius);
+}
+
+// ============================
+// Topic-map / footer / status banners
+// ============================
+.topic-map {
+  section { border-top: none; }
+
+  .buttons .btn {
+    border-radius: var(--d-default-border-radius);
+  }
+}
+
+.post-notice {
+  border-radius: var(--d-default-border-radius);
+  border-top: none;
+}
+
+.topic-status-info,
+.topic-timer-info {
+  border-top: none;
+}
+
+.small-action {
+  .topic-avatar,
+  .small-action-desc {
+    border-top: none;
+  }
+}
+
+// ============================
+// Polls
+// ============================
+.poll {
+  border-radius: var(--d-default-border-radius);
+}

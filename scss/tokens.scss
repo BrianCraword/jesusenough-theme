@@ -1,0 +1,43 @@
+// Design tokens for the Jesus Enough theme.
+//
+// We override Discourse's stable geometry tokens (--d-*-border-radius) so
+// every Discourse-native rule that already references them inherits our
+// shape language for free. Brand-specific values are namespaced --je-*.
+//
+// Fonts: Outfit and Inter are referenced below but not loaded here. Add
+// them to the site via Admin > Customize > Fonts, or via a separate font
+// component, so this theme stays focused on visual styling.
+
+:root {
+  // Brand palette
+  --je-accent-primary: #FF4D6D;       // pinkish red
+  --je-accent-secondary: #FF9E00;     // sunset orange
+  --je-accent-tertiary: #7209B7;      // deep purple
+  --je-text-main: #2D2327;            // warm charcoal
+  --je-app-bg: #FFFDFE;               // warm tinted white
+  --je-card-bg: rgba(255, 255, 255, 0.95);
+  --je-button-text-light: #FFFFFF;
+
+  // Living gradients
+  --je-gradient-love: linear-gradient(135deg, var(--je-accent-primary) 0%, var(--je-accent-secondary) 100%);
+  --je-gradient-deep: linear-gradient(135deg, var(--je-accent-primary) 0%, var(--je-accent-tertiary) 100%);
+  --je-gradient-living: linear-gradient(110deg, var(--je-accent-primary) 0%, var(--je-accent-secondary) 50%, var(--je-accent-primary) 100%);
+
+  // Geometry — overrides Discourse stable tokens so native rules pick this up.
+  --d-button-border-radius: 50px;
+  --d-input-border-radius: 50px;
+  --d-nav-pill-border-radius: 50px;
+  --d-default-border-radius: 28px;
+  --d-select-body-border-radius: 16px;
+  --d-avatar-border-radius: 50%;
+
+  // Elevation
+  --je-elevation-subtle: 0 4px 15px rgba(0, 0, 0, 0.03);
+  --je-elevation-card-hover: 0 10px 25px rgba(255, 77, 109, 0.08);
+  --je-elevation-button: 0 8px 25px rgba(255, 77, 109, 0.25);
+  --je-elevation-button-hover: 0 12px 30px rgba(255, 77, 109, 0.35);
+
+  // Typography stacks
+  --je-font-ui: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --je-font-heading: 'Outfit', sans-serif;
+}

@@ -1,0 +1,57 @@
+// ============================
+// Floating-island header
+// ============================
+.d-header-wrap {
+  background: transparent;
+  box-shadow: none;
+}
+
+.d-header {
+  @include je-glass(0.85, 25px);
+  border-radius: var(--d-default-border-radius);
+  margin: 15px auto 0;
+  width: calc(100% - 40px);
+  border: 1px solid rgba(255, 77, 109, 0.1);
+  box-shadow: var(--je-elevation-subtle);
+  height: 65px;
+  transition: all 0.3s ease;
+}
+
+// ============================
+// Header icons — tinted, with hover lift on dropdown toggles
+// ============================
+.d-header .d-icon {
+  color: var(--je-text-main);
+  opacity: 0.8;
+  transition: opacity 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    color: var(--je-accent-primary);
+    opacity: 1;
+  }
+}
+
+.d-header-icons .header-dropdown-toggle {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 50%;
+  padding: 8px;
+  margin-left: 10px;
+  border: 1px solid rgba(255, 77, 109, 0.1);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 77, 109, 0.05);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: var(--je-elevation-subtle);
+  }
+}
+
+// ============================
+// Menu panel (dropdowns from the header)
+// ============================
+.menu-panel.drop-down {
+  border-radius: var(--d-default-border-radius);
+  margin-top: 0.25em;
+}
