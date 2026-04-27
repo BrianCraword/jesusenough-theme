@@ -1,11 +1,12 @@
 // ============================
 // App background — soft tinted gradients
 //
-// Match Air's `html body:not(.no-ember)` selector (specificity 0,0,1,2);
-// a bare `body` rule loses the cascade and Air's dark linear overlay shows
-// through instead of our warm pink/orange ambient tints.
+// Air's rule is `html body:not(.no-ember)` (specificity 0,0,1,2). We add
+// `[class]` to bump to (0,0,2,2) — Discourse always sets classes on body,
+// so the attribute selector always matches. Component CSS loads BEFORE
+// parent CSS in Discourse, so equal specificity loses; we have to beat Air.
 // ============================
-html body:not(.no-ember) {
+html body[class]:not(.no-ember) {
   background-color: var(--je-app-bg);
   background-image:
     radial-gradient(circle at 15% 50%, rgba(255, 77, 109, 0.12), transparent 35%),
@@ -126,12 +127,12 @@ html body .background-container {
 // ============================
 // Pill nav controls (Latest / Hot / Categories / etc.)
 //
-// Air sets these to 0.5em via `.nav-pills:not(.user-nav) > li > a`
-// (specificity 0,0,2,2). We match that exact selector so we tie + win
-// on cascade order. User-nav pills are intentionally untouched —
-// Discourse styles them differently inside profile pages.
+// Air's inactive rule is at (0,0,2,2), active at (0,0,3,2). We prefix with
+// `#main-outlet-wrapper` to add an ID — beats Air at (0,1,2,2) inactive and
+// (0,1,3,2) active. User-nav pills are intentionally untouched — Discourse
+// styles them differently inside profile pages.
 // ============================
-.nav-pills:not(.user-nav) > li > a {
+#main-outlet-wrapper .nav-pills:not(.user-nav) > li > a {
   background: #FFFFFF;
   border: 1px solid rgba(255, 77, 109, 0.1);
   border-radius: var(--d-button-border-radius);
@@ -142,12 +143,9 @@ html body .background-container {
   transition: all 0.2s ease;
 }
 
-.nav-pills:not(.user-nav) > li.active > a,
-.nav-pills:not(.user-nav) > li > a.active {
+#main-outlet-wrapper .nav-pills:not(.user-nav) > li.active > a,
+#main-outlet-wrapper .nav-pills:not(.user-nav) > li > a.active {
   background: var(--je-gradient-love);
-  // Active branch needs its own radius — Air's
-  // `.nav-pills:not(.user-nav) > li a.active` rule (specificity 0,0,3,2)
-  // beats the inactive rule above and would otherwise pin active to 0.5em.
   border-radius: var(--d-button-border-radius);
   color: var(--je-button-text-light);
   box-shadow: var(--je-elevation-button);

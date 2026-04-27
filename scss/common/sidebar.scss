@@ -1,8 +1,7 @@
 // Note: the floating-dock geometry (radius, glass bg, margins) lives in
-// scss/desktop/sidebar.scss so it loads in the desktop pipeline AFTER
-// Air's `scss/sidebar-desktop.scss`. Common-pipeline rules at the same
-// specificity lose to Air's desktop pipeline regardless of selector.
-// This file only carries rules that don't fight Air directly.
+// scss/desktop/sidebar.scss with a higher-specificity selector that beats
+// Air outright. This file only carries rules that don't fight Air directly
+// (sidebar links, section headers, per-link icon tiles).
 
 // ============================
 // Sidebar links — pill rows with translate-X hover
