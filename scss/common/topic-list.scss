@@ -2,17 +2,21 @@
 // Topic-list rows — visible floating cards
 //
 // Air already gives `.topic-list-item` a white background and 16px corners
-// via a class-only selector. We override the shadow with a warm-tinted,
-// more visible drop so cards lift off the blush body bg instead of washing
-// into it. Selector is bumped to `#main-outlet-wrapper .topic-list-item`
-// (specificity 0,1,1,0) to beat any same-specificity Air rule.
+// via a class-only selector. We override the shadow with a neutral crisp
+// drop that lifts cards off the white body bg, plus a hover state that
+// adds extra elevation and a thin magenta border accent.
+//
+// v0.5.0: dropped the warm pink-tinted shadow. Sharp design wants the
+// shadow to be a tonal lift, not a colored halo.
 // ============================
 #main-outlet-wrapper .topic-list-item {
-  box-shadow: 0 4px 15px rgba(255, 77, 109, 0.06);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  border: 1px solid var(--je-neutral-200);
+  box-shadow: var(--je-elevation-subtle);
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
 
   &:hover {
     box-shadow: var(--je-elevation-card-hover);
     transform: translateY(-2px);
+    border-color: var(--je-accent-primary);
   }
 }

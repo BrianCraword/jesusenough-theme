@@ -1,17 +1,14 @@
 // ============================
-// App background — soft tinted gradients
+// App background — pure white, no tint
 //
-// Air's rule is `html body:not(.no-ember)` (specificity 0,0,1,2). We add
-// `[class]` to bump to (0,0,2,2) — Discourse always sets classes on body,
-// so the attribute selector always matches. Component CSS loads BEFORE
-// parent CSS in Discourse, so equal specificity loses; we have to beat Air.
+// v0.5.0: dropped the soft radial gradients. Sharp design wants the page
+// surface to be a clean canvas; the cards do the work of creating depth.
+// Specificity bump (`html body[class]:not(.no-ember)`) still required to
+// beat Air's body bg rule.
 // ============================
 html body[class]:not(.no-ember) {
   background-color: var(--je-app-bg);
-  background-image:
-    radial-gradient(circle at 15% 50%, rgba(255, 77, 109, 0.12), transparent 35%),
-    radial-gradient(circle at 85% 30%, rgba(255, 158, 0, 0.12), transparent 35%);
-  background-attachment: fixed;
+  background-image: none;
   font-family: var(--je-font-ui);
   color: var(--je-text-main);
 }
@@ -27,8 +24,7 @@ html body #main-outlet {
   margin-top: 0;
 }
 
-// Air paints a fixed blue gradient ellipse behind the page. Replace with
-// our own warm tint set on `body` above.
+// Air paints a fixed blue gradient ellipse behind the page. We don't want it.
 html body .background-container {
   display: none;
 }
@@ -68,12 +64,16 @@ html body .background-container {
 }
 
 // ============================
-// Primary action buttons — gradient pill with hover lift
+// Primary action buttons — solid magenta pill, hover deepens
+//
+// v0.5.0 swapped the magenta→orange gradient for a solid magenta. The
+// gradient still exists as a brand gesture but lives only on the welcome
+// banner background — every other primary action is solid for sharpness.
 // ============================
 .btn-primary,
 .btn-danger,
 #create-topic {
-  background: var(--je-gradient-love);
+  background: var(--je-accent-primary);
   border: none;
   box-shadow: var(--je-elevation-button);
   border-radius: var(--d-button-border-radius);
@@ -81,14 +81,14 @@ html body .background-container {
   font-weight: 700;
   padding: 10px 24px;
   color: var(--je-button-text-light);
-  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
-              box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
-              background 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: transform 0.2s ease,
+              box-shadow 0.2s ease,
+              background 0.2s ease;
 
   &:hover {
-    transform: translateY(-3px) scale(1.03);
+    background: var(--je-primary-deep);
     box-shadow: var(--je-elevation-button-hover);
-    background: var(--je-gradient-deep);
+    transform: translateY(-2px);
     color: var(--je-button-text-light);
   }
 
@@ -99,23 +99,22 @@ html body .background-container {
 }
 
 // ============================
-// Secondary buttons — soft white pill, accent on hover
+// Secondary buttons — white pill, neutral border, magenta hover
 // ============================
 .btn-default,
 .btn-transparent {
   background: #FFFFFF;
-  border: 1px solid rgba(255, 77, 109, 0.1);
+  border: 1px solid var(--je-neutral-200);
   border-radius: var(--d-button-border-radius);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+  box-shadow: none;
   color: var(--je-text-main);
-  transition: all 0.2s ease;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 
   &:hover {
-    background: var(--je-app-bg);
+    background: #FFFFFF;
     border-color: var(--je-accent-primary);
-    box-shadow: var(--je-elevation-subtle);
-    transform: translateY(-1px);
     color: var(--je-accent-primary);
+    transform: translateY(-1px);
 
     .d-icon {
       color: var(--je-accent-primary);
@@ -129,28 +128,33 @@ html body .background-container {
 //
 // Air's inactive rule is at (0,0,2,2), active at (0,0,3,2). We prefix with
 // `#main-outlet-wrapper` to add an ID — beats Air at (0,1,2,2) inactive and
-// (0,1,3,2) active. User-nav pills are intentionally untouched — Discourse
-// styles them differently inside profile pages.
+// (0,1,3,2) active. User-nav pills are intentionally untouched.
+// v0.5.0: solid magenta active state (no gradient — that lives only on the
+// welcome banner).
 // ============================
 #main-outlet-wrapper .nav-pills:not(.user-nav) > li > a {
   background: #FFFFFF;
-  border: 1px solid rgba(255, 77, 109, 0.1);
+  border: 1px solid var(--je-neutral-200);
   border-radius: var(--d-button-border-radius);
   color: var(--je-text-main);
   font-weight: 600;
   margin-right: 8px;
   padding: 8px 18px;
-  transition: all 0.2s ease;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+
+  &:hover {
+    border-color: var(--je-accent-primary);
+    color: var(--je-accent-primary);
+  }
 }
 
 #main-outlet-wrapper .nav-pills:not(.user-nav) > li.active > a,
 #main-outlet-wrapper .nav-pills:not(.user-nav) > li > a.active {
-  background: var(--je-gradient-love);
+  background: var(--je-accent-primary);
   border-radius: var(--d-button-border-radius);
   color: var(--je-button-text-light);
   box-shadow: var(--je-elevation-button);
-  border: none;
-  transform: translateY(-2px);
+  border: 1px solid var(--je-accent-primary);
 
   * {
     color: var(--je-button-text-light);
@@ -159,7 +163,8 @@ html body .background-container {
 }
 
 // ============================
-// Floating list-controls dropdowns (categories, tags)
+// List-controls dropdowns (categories, tags) — solid white pills
+// v0.5.0: dropped backdrop-blur. Sharp wants solid surfaces.
 // ============================
 .list-controls {
   background: transparent;
@@ -169,21 +174,17 @@ html body .background-container {
 
   .category-drop,
   .tag-drop {
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(15px) saturate(150%);
-    -webkit-backdrop-filter: blur(15px) saturate(150%);
+    background: #FFFFFF;
     border-radius: var(--d-button-border-radius);
-    border: 1px solid rgba(255, 77, 109, 0.1);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    border: 1px solid var(--je-neutral-200);
+    box-shadow: none;
     margin-right: 10px;
     color: var(--je-text-main);
-    transition: all 0.3s ease;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
     &:hover {
-      background: #FFFFFF;
-      box-shadow: 0 8px 25px rgba(255, 77, 109, 0.1);
-      transform: translateY(-2px);
       border-color: var(--je-accent-primary);
+      box-shadow: var(--je-elevation-subtle);
     }
   }
 }

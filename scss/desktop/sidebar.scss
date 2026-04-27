@@ -1,23 +1,20 @@
 // ============================
-// Glass sidebar — frosted floating dock on the left (desktop)
+// Sidebar wrapper — solid white floating dock (desktop)
 //
-// Air's rule is `#main-outlet-wrapper .sidebar-wrapper` (specificity 0,1,1,0).
-// We use the chained-class trick (`.sidebar-wrapper.sidebar-wrapper`) to bump
-// to (0,1,2,0) — same element matched, +1 class on specificity. Pipeline
-// choice (desktop vs common) does not affect cascade here: Discourse loads
-// component sheets before parent sheets in both pipelines, so we have to
-// beat Air's specificity outright. Desktop is just the semantically right
-// home for a desktop-only floating dock.
+// v0.5.0: dropped glassmorphism. The sidebar is now a clean white panel
+// with a thin neutral border and a crisp visible shadow. Sharp surfaces,
+// no blur.
+//
+// Specificity bump (chained-class trick) still required to beat Air's
+// `#main-outlet-wrapper .sidebar-wrapper` rule.
 // ============================
 #main-outlet-wrapper .sidebar-wrapper.sidebar-wrapper,
 #main-outlet-wrapper .d-sidebar.d-sidebar {
-  @include je-glass(0.65, 30px);
-  border: 1px solid rgba(255, 77, 109, 0.08);
-  border-radius: 32px;
+  background: #FFFFFF;
+  border: 1px solid var(--je-neutral-200);
+  border-radius: var(--d-default-border-radius);
   margin: 20px 10px 20px 20px;
   padding: 24px 8px;
-  box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.03),
-    inset 0 1px 0 rgba(255, 255, 255, 1);
+  box-shadow: var(--je-elevation-subtle);
   height: calc(100vh - 110px);
 }

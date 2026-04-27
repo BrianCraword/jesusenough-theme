@@ -29,17 +29,17 @@ textarea,
 .search-input-wrapper input,
 .fps-search input {
   background: #FFFFFF;
-  border: 1px solid rgba(255, 77, 109, 0.1);
+  border: 1px solid var(--je-neutral-200);
   border-radius: var(--d-input-border-radius);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  box-shadow: none;
   padding: 16px 24px;
   font-size: 1.1rem;
-  transition: all 0.3s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
   &:focus {
     border-color: var(--je-accent-primary);
-    box-shadow: 0 8px 25px rgba(255, 77, 109, 0.15);
-    transform: scale(1.01);
+    box-shadow: 0 0 0 2px var(--je-accent-primary);
+    outline: none;
   }
 }
 

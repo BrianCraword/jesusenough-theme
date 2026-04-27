@@ -1,48 +1,29 @@
 // ============================
-// Welcome Banner
+// Welcome Banner — full-bleed magenta→orange gradient band
 //
-// Targets selectors from the official Discourse Welcome Banner and Custom
-// Search Banner theme components. Install one of those alongside this
-// theme so these rules have something to style.
+// v0.5.0: This is where the signature gradient lives. The banner is now a
+// big bold gradient block with white text carved on top. Replaces the
+// glassy blush card with the gradient title that was the v0.4.0 approach.
+//
+// Targets selectors from the official Welcome Banner / Custom Search Banner
+// theme components. Install one of those alongside this theme so these
+// rules have something to style.
 // ============================
 .welcome-banner__wrap,
 .custom-search-banner-wrap {
-  @include je-glass(0.95, 25px);
-  border-radius: 40px;
-  border: 1px solid rgba(255, 77, 109, 0.1);
-  box-shadow: 0 15px 45px rgba(255, 77, 109, 0.08);
-  padding: 50px 20px;
+  background: var(--je-gradient-love);
+  border-radius: var(--d-default-border-radius);
+  border: none;
+  box-shadow: var(--je-elevation-card-hover);
+  padding: 60px 30px;
   margin-bottom: 35px;
   position: relative;
   overflow: hidden;
-
-  // Soft inner glow
-  &::before {
-    content: '';
-    position: absolute;
-    top: -20%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60%;
-    height: 50%;
-    background: radial-gradient(ellipse at center, rgba(255, 77, 109, 0.1) 0%, transparent 70%);
-    filter: blur(40px);
-    z-index: 0;
-    pointer-events: none;
-  }
-}
-
-// Float content above the inner glow
-.welcome-banner__title,
-.welcome-banner__subheader,
-.welcome-banner__search-menu,
-.search-menu.welcome-banner__search-menu {
-  position: relative;
-  z-index: 2;
 }
 
 // ============================
-// Big shimmering gradient title
+// Title — solid white, big, bold, no gradient text needed
+// (the gradient is the BG; the text contrasts hard against it)
 // ============================
 .welcome-banner__title,
 .custom-search-banner-headline {
@@ -51,48 +32,58 @@
   font-weight: 900;
   letter-spacing: -0.04em;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+  color: var(--je-button-text-light);
   text-shadow: none;
-  filter: drop-shadow(0px 8px 16px rgba(255, 77, 109, 0.15));
+  background: none;
+  -webkit-text-fill-color: var(--je-button-text-light);
+}
 
-  @include je-gradient-text(var(--je-gradient-living));
+.welcome-banner__subheader {
+  color: var(--je-button-text-light);
+  text-align: center;
+  opacity: 0.95;
 }
 
 // ============================
-// Pill search inside the banner
+// Pill search inside the banner — white pill on the gradient
 // ============================
 .search-input.search-input--welcome-banner input {
   background: #FFFFFF;
-  border: 1px solid rgba(255, 77, 109, 0.15);
+  border: none;
   border-radius: 50px;
-  box-shadow:
-    inset 0 2px 5px rgba(0, 0, 0, 0.02),
-    0 4px 15px rgba(255, 77, 109, 0.03);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   height: 60px;
   font-size: 1.25rem;
   padding: 0 30px;
-  transition: all 0.3s ease;
+  color: var(--je-text-main);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+  &::placeholder {
+    color: var(--je-neutral-500);
+  }
 
   &:focus {
-    box-shadow:
-      inset 0 2px 5px rgba(0, 0, 0, 0.01),
-      0 8px 30px rgba(255, 77, 109, 0.15);
-    border-color: var(--je-accent-primary);
-    transform: scale(1.02);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.20),
+                0 0 0 3px rgba(255, 255, 255, 0.50);
+    transform: scale(1.01);
+    outline: none;
   }
 }
 
 // ============================
-// Advanced search button — strip its chrome, keep the icon
+// Advanced search button — white icon, no chrome
 // ============================
 .welcome-banner__wrap .show-advanced-search,
-.welcome-banner__wrap .search-advanced-btn {
+.welcome-banner__wrap .search-advanced-btn,
+.custom-search-banner-wrap .show-advanced-search,
+.custom-search-banner-wrap .search-advanced-btn {
   background: transparent;
   border: none;
   box-shadow: none;
 
   .d-icon {
     font-size: 1.35rem;
-    color: var(--je-accent-primary);
+    color: var(--je-button-text-light);
   }
 }

@@ -1,27 +1,42 @@
 // Design tokens for the Jesus Enough theme.
 //
-// We override Discourse's stable geometry tokens (--d-*-border-radius) so
-// every Discourse-native rule that already references them inherits our
-// shape language for free. Brand-specific values are namespaced --je-*.
-//
-// Fonts: Outfit and Inter are referenced below but not loaded here. Add
-// them to the site via Admin > Customize > Fonts, or via a separate font
-// component, so this theme stays focused on visual styling.
+// v0.5.0 — Sharp redesign.
+// - Qiupid magenta (#E91E81) leads; punchy orange (#F97316) supports.
+// - Pure white background, near-black anchor for headlines and the obsidian
+//   header. Neutral-gray spine carries borders and meta text.
+// - Discourse stable geometry tokens (--d-*-border-radius) are overridden so
+//   every native rule that already references them inherits our shape.
+// - Brand-specific values namespaced --je-*.
+// - Fonts (Outfit, Inter) referenced but not loaded here. Add via Admin >
+//   Customize > Fonts or a separate font component.
 
 :root {
-  // Brand palette
-  --je-accent-primary: #FF4D6D;       // pinkish red
-  --je-accent-secondary: #FF9E00;     // sunset orange
-  --je-accent-tertiary: #7209B7;      // deep purple
-  --je-text-main: #2D2327;            // warm charcoal
-  --je-app-bg: #FFF5F8;               // soft blush — gives white cards visible separation
-  --je-card-bg: rgba(255, 255, 255, 0.95);
+  // Brand palette — magenta primary, orange supporting
+  --je-accent-primary: #E91E81;       // Qiupid magenta
+  --je-accent-secondary: #F97316;     // punchy orange
+  --je-accent-tertiary: #7209B7;      // legacy: kept ONLY for the sidebar
+                                      // "invite" tile (functional category cue)
+  --je-text-main: #0A0A0F;            // near-black anchor
+  --je-app-bg: #FFFFFF;               // pure white surface
+  --je-card-bg: #FFFFFF;
   --je-button-text-light: #FFFFFF;
 
-  // Living gradients
+  // Magenta shades — handle hover/pressed/selected/faint via lightness
+  --je-primary-deep: #B30F5C;         // hover/pressed for primary
+  --je-primary-faint: #FFF0F7;        // very pale wash for hover backgrounds
+  --je-primary-soft: #FCC9E0;         // selected state, badges
+
+  // Anchor variants
+  --je-anchor-soft: #2A2A33;          // sub-headings, secondary text
+
+  // Neutral spine — borders, dividers, meta text
+  --je-neutral-100: #F4F4F5;
+  --je-neutral-200: #E5E7EB;
+  --je-neutral-500: #6B7280;
+
+  // Signature gradient — used on the welcome banner background only.
+  // Every other accent is a solid block.
   --je-gradient-love: linear-gradient(135deg, var(--je-accent-primary) 0%, var(--je-accent-secondary) 100%);
-  --je-gradient-deep: linear-gradient(135deg, var(--je-accent-primary) 0%, var(--je-accent-tertiary) 100%);
-  --je-gradient-living: linear-gradient(110deg, var(--je-accent-primary) 0%, var(--je-accent-secondary) 50%, var(--je-accent-primary) 100%);
 
   // Geometry — overrides Discourse stable tokens so native rules pick this up.
   --d-button-border-radius: 50px;
@@ -31,11 +46,11 @@
   --d-select-body-border-radius: 16px;
   --d-avatar-border-radius: 50%;
 
-  // Elevation
-  --je-elevation-subtle: 0 4px 15px rgba(0, 0, 0, 0.03);
-  --je-elevation-card-hover: 0 10px 25px rgba(255, 77, 109, 0.08);
-  --je-elevation-button: 0 8px 25px rgba(255, 77, 109, 0.25);
-  --je-elevation-button-hover: 0 12px 30px rgba(255, 77, 109, 0.35);
+  // Elevation — sharp, visible drops (not the soft pink halos of v0.4.0).
+  --je-elevation-subtle: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --je-elevation-card-hover: 0 12px 24px rgba(0, 0, 0, 0.10);
+  --je-elevation-button: 0 4px 12px rgba(233, 30, 129, 0.25);
+  --je-elevation-button-hover: 0 8px 20px rgba(233, 30, 129, 0.35);
 
   // Typography stacks
   --je-font-ui: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;

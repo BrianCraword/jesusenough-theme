@@ -1,7 +1,11 @@
-// Note: the floating-dock geometry (radius, glass bg, margins) lives in
+// Note: the floating-dock geometry (radius, bg, margins) lives in
 // scss/desktop/sidebar.scss with a higher-specificity selector that beats
 // Air outright. This file only carries rules that don't fight Air directly
 // (sidebar links, section headers, per-link icon tiles).
+//
+// v0.5.0: sidebar bg is now solid white (no glass), so hover/active states
+// can no longer use white-on-white. Hover uses a faint magenta wash; active
+// uses primary-faint with a strong magenta accent.
 
 // ============================
 // Sidebar links — pill rows with translate-X hover
@@ -14,12 +18,11 @@
   color: var(--je-text-main);
   font-family: var(--je-font-ui);
   font-weight: 600;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.2s ease;
 
   &:hover {
-    background: #FFFFFF;
-    transform: translateX(8px);
-    box-shadow: var(--je-elevation-subtle);
+    background: var(--je-primary-faint);
+    transform: translateX(4px);
     color: var(--je-accent-primary);
 
     .d-icon {
@@ -27,20 +30,16 @@
     }
 
     .sidebar-section-link-prefix.icon {
-      transform: scale(1.15) rotate(5deg);
-      filter: brightness(1.1);
+      transform: scale(1.10);
     }
   }
 
-  // Active link: white card + accent text + icon-tile pulse.
-  // We deliberately keep the per-link icon-tile colors below — the active
-  // state should still feel like "the brand version of this link," not
-  // wash everything pink.
+  // Active link: pale magenta wash + strong accent text. The icon tile
+  // stays in its functional category color (rainbow per option C).
   &.active {
-    background: #FFFFFF;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-    border: 1px solid rgba(255, 77, 109, 0.1);
-    transform: translateX(8px);
+    background: var(--je-primary-faint);
+    border: 1px solid var(--je-primary-soft);
+    transform: translateX(4px);
 
     .sidebar-section-link-content-text {
       color: var(--je-accent-primary);
@@ -54,10 +53,12 @@
 }
 
 // ============================
-// Section headers (CATEGORIES / CHANNELS / DMS)
+// Section headers (CATEGORIES / CHANNELS / DMS) — neutral grey, restrained
+// v0.5.0: dropped the orange tint. Sharp design wants section headers to
+// recede; the icon tiles below carry the visual weight.
 // ============================
 .sidebar-section-header-text {
-  color: var(--je-accent-secondary);
+  color: var(--je-neutral-500);
   font-family: var(--je-font-heading);
   font-weight: 800;
   letter-spacing: 0.15em;
@@ -65,11 +66,10 @@
   padding-left: 16px;
   margin-top: 24px;
   margin-bottom: 12px;
-  opacity: 0.9;
 }
 
 // ============================
-// Per-link colored icon tiles
+// Per-link colored icon tiles — kept as-is (option C: functional category cues)
 // Targets stock Discourse [data-link-name] hooks so this works on any theme.
 // ============================
 .sidebar-section-link-prefix.icon {
@@ -81,7 +81,7 @@
   border-radius: 8px;
   margin-right: 12px;
   background: rgba(100, 100, 100, 0.05);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: transform 0.2s ease;
 
   .d-icon {
     margin: 0;
@@ -104,7 +104,7 @@
   }
 
   &[data-link-name="review"] .sidebar-section-link-prefix.icon {
-    background: rgba(255, 77, 109, 0.12);
+    background: rgba(233, 30, 129, 0.12);
     .d-icon { color: var(--je-accent-primary); }
   }
 
@@ -129,12 +129,12 @@
   }
 
   &[data-link-name="categories"] .sidebar-section-link-prefix.icon {
-    background: rgba(255, 77, 109, 0.12);
+    background: rgba(233, 30, 129, 0.12);
     .d-icon { color: var(--je-accent-primary); }
   }
 
   &[data-link-name="channels"] .sidebar-section-link-prefix.icon {
-    background: rgba(255, 158, 0, 0.12);
+    background: rgba(249, 115, 22, 0.12);
     .d-icon { color: var(--je-accent-secondary); }
   }
 }

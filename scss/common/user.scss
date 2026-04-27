@@ -7,17 +7,10 @@ img.avatar,
   border-radius: var(--d-avatar-border-radius);
 }
 
-// Gradient ring on avatars in the topic feed.
-// Note: in Phase A this targets Air's stock topic-list-item, where the
-// avatar lives in the "posters" column. Phase B introduces our own
-// tli-top-section component which will position the avatar differently;
-// this rule will continue to work via the same selector.
-.topic-list-item .avatar,
-.latest-topic-list-item .avatar {
-  padding: 2px;
-  background: var(--je-gradient-love);
-  box-shadow: 0 4px 12px rgba(255, 77, 109, 0.2);
-}
+// v0.5.0: dropped the gradient ring on feed avatars. Sharp design wants
+// avatars to be clean photographic circles, not haloed brand objects. The
+// gradient still earns its keep on the welcome banner; spreading it to
+// every avatar dilutes the gesture.
 
 // ============================
 // User profile (the /u/<username>/* pages)
