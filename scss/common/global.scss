@@ -8,8 +8,8 @@
 html body:not(.no-ember) {
   background-color: var(--je-app-bg);
   background-image:
-    radial-gradient(circle at 15% 50%, rgba(255, 77, 109, 0.06), transparent 25%),
-    radial-gradient(circle at 85% 30%, rgba(255, 158, 0, 0.06), transparent 25%);
+    radial-gradient(circle at 15% 50%, rgba(255, 77, 109, 0.12), transparent 35%),
+    radial-gradient(circle at 85% 30%, rgba(255, 158, 0, 0.12), transparent 35%);
   background-attachment: fixed;
   font-family: var(--je-font-ui);
   color: var(--je-text-main);
@@ -145,6 +145,10 @@ html body .background-container {
 .nav-pills:not(.user-nav) > li.active > a,
 .nav-pills:not(.user-nav) > li > a.active {
   background: var(--je-gradient-love);
+  // Active branch needs its own radius — Air's
+  // `.nav-pills:not(.user-nav) > li a.active` rule (specificity 0,0,3,2)
+  // beats the inactive rule above and would otherwise pin active to 0.5em.
+  border-radius: var(--d-button-border-radius);
   color: var(--je-button-text-light);
   box-shadow: var(--je-elevation-button);
   border: none;

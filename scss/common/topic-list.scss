@@ -1,0 +1,18 @@
+// ============================
+// Topic-list rows — visible floating cards
+//
+// Air already gives `.topic-list-item` a white background and 16px corners
+// via a class-only selector. We override the shadow with a warm-tinted,
+// more visible drop so cards lift off the blush body bg instead of washing
+// into it. Selector is bumped to `#main-outlet-wrapper .topic-list-item`
+// (specificity 0,1,1,0) to beat any same-specificity Air rule.
+// ============================
+#main-outlet-wrapper .topic-list-item {
+  box-shadow: 0 4px 15px rgba(255, 77, 109, 0.06);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    box-shadow: var(--je-elevation-card-hover);
+    transform: translateY(-2px);
+  }
+}
