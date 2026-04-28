@@ -16,7 +16,13 @@
   box-shadow: none;
 }
 
-.d-header {
+// Specificity bump: Discourse base CSS sets `.d-header` background to
+// `var(--header-background)` at (0,0,1,0). Component CSS loads BEFORE base,
+// so equal specificity loses. Prefixing with `html body` lifts us to
+// (0,0,1,2), winning the cascade. This also makes the obsidian treatment
+// part of the brand identity rather than a color-scheme-derived value —
+// the header stays obsidian regardless of which scheme is active.
+html body .d-header {
   background: var(--je-text-main);
   border-radius: var(--d-default-border-radius);
   margin: 15px auto 0;

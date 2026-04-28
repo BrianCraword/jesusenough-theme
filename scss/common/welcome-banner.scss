@@ -47,12 +47,17 @@
 
 // ============================
 // Pill search inside the banner — white pill on the gradient
+//
+// v0.5.1: shadow tightened. The previous `0 8px 24px rgba(0,0,0,0.15)`
+// rendered an uneven artifact at the right edge where the gradient runs
+// hottest (orange end). A short-offset, low-spread shadow lifts the pill
+// without the halo bleed.
 // ============================
 .search-input.search-input--welcome-banner input {
   background: #FFFFFF;
   border: none;
   border-radius: 50px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   height: 60px;
   font-size: 1.25rem;
   padding: 0 30px;
@@ -64,8 +69,8 @@
   }
 
   &:focus {
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.20),
-                0 0 0 3px rgba(255, 255, 255, 0.50);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12),
+                0 0 0 3px rgba(255, 255, 255, 0.55);
     transform: scale(1.01);
     outline: none;
   }
