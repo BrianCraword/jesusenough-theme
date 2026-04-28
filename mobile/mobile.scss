@@ -1,5 +1,4 @@
 @import "tokens";
 @import "mixins";
 
-// Phase A leaves mobile minimal — Phase D (mobile polish) will expand this
-// with floating create-topic FAB, list-controls bottom positioning, etc.
+@import "mobile/global";

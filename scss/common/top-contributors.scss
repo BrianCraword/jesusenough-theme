@@ -1,0 +1,121 @@
+// ============================
+// Top Contributors widget (discourse-top-contributors plugin)
+//
+// v0.5.2: The plugin renders <div class="discourse-top-contributors"> as a
+// child of <table class="topic-list">, sitting between <thead> and
+// <tbody>. Air sets `display: contents` on the table and tbody, which
+// flattens this div into the same flow as the topic rows — so by default
+// the widget stacks awkwardly between the column headers and the first
+// topic, cramping both.
+//
+// Strategy: float the widget to the right at desktop widths (≥1100px) so
+// topic cards flow alongside it on the left. Below 1100px it falls back
+// to a full-width block above the topic list, which keeps narrow-screen
+// behavior sane without breaking mobile.
+//
+// Card chrome matches the topic-list visual language: white surface,
+// 1px neutral border, soft shadow, brand magenta on heart icons and the
+// "View All" link.
+// ============================
+
+.discourse-top-contributors {
+  background: #FFFFFF;
+  border: 1px solid var(--je-neutral-200);
+  border-radius: var(--d-default-border-radius);
+  padding: 16px 20px;
+  box-shadow: var(--je-elevation-subtle);
+  margin-bottom: 16px;
+  box-sizing: border-box;
+}
+
+.discourse-top-contributors .top-contributors-heading {
+  font-family: var(--je-font-heading);
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  margin: 0 0 14px 0;
+  color: var(--je-text-main);
+}
+
+// Contributor list
+.discourse-top-contributors .top-contributors-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.discourse-top-contributors .top-contributors-container-contributor {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+// Avatar + name
+.discourse-top-contributors .top-contributors-container-contributor-name {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  min-width: 0; // allow truncation when names are long
+
+  .user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 500;
+    color: var(--je-text-main);
+  }
+
+  img.avatar {
+    flex-shrink: 0;
+    border-radius: 50%;
+  }
+}
+
+// Heart icon + likes count
+.discourse-top-contributors .top-contributors-container-contributor-likes {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.875rem;
+  color: var(--je-neutral-500);
+  font-weight: 500;
+  flex-shrink: 0;
+
+  .d-icon-heart {
+    color: var(--je-accent-primary);
+  }
+}
+
+// "View All" link — magenta CTA with arrow tail (consistent with topic
+// "read more" treatment elsewhere in the theme). Permissive selectors so
+// the plugin's actual link class doesn't matter.
+.discourse-top-contributors > a,
+.discourse-top-contributors .top-contributors-view-all,
+.discourse-top-contributors a[href*="/u"]:last-child {
+  display: inline-block;
+  margin-top: 12px;
+  font-weight: 600;
+  color: var(--je-accent-primary);
+  font-size: 0.875rem;
+
+  &::after {
+    content: " →";
+    margin-left: 0.15em;
+  }
+}
+
+// ============================
+// Layout: float-right on desktop, full-width fallback on narrow screens
+// ============================
+@media (min-width: 1100px) {
+  #list-area .discourse-top-contributors {
+    float: right;
+    width: 280px;
+    margin-left: 24px;
+    margin-top: 0;
+  }
+}

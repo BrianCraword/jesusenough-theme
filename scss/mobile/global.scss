@@ -1,0 +1,15 @@
+// ============================
+// Mobile global polish
+//
+// v0.5.2: breathing room below the obsidian header. On desktop the natural
+// page padding gives the floating-island header visual separation from the
+// content below; on mobile Discourse stacks tighter and the header crowds
+// the topic-list controls. Push them apart.
+//
+// The chained-class trick (`.d-header.d-header`) bumps specificity to
+// (0,0,2,0), winning over Discourse base + parent rules without resorting
+// to `!important`.
+// ============================
+.d-header.d-header {
+  margin-bottom: 16px;
+}
