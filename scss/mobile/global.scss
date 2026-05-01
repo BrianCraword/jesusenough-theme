@@ -13,3 +13,49 @@
 .d-header.d-header {
   margin-bottom: 16px;
 }
+
+// ============================
+// Mobile header icon scaling (v0.6.0)
+//
+// Preserve the desktop hierarchy (AI bot is the lead, avatar is the
+// anchor, chat is utility) while shrinking everything for narrow screens.
+// ============================
+.d-header-icons {
+  .chat-header-icon {
+    width: 36px;
+    height: 36px;
+    margin-left: 6px;
+  }
+
+  .ai-bot-button.ai-bot-button.ai-bot-button {
+    width: 44px;
+    height: 44px;
+
+    .d-icon {
+      width: 20px;
+      height: 20px;
+      font-size: 20px;
+    }
+  }
+
+  li:has(> .ai-bot-button)::after {
+    top: 6px;
+    right: 6px;
+    width: 7px;
+    height: 7px;
+  }
+
+  #current-user.current-user {
+    margin-left: 10px;
+  }
+
+  #current-user #toggle-current-user {
+    width: 44px;
+    height: 44px;
+
+    img.avatar {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}

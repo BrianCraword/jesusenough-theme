@@ -1,40 +1,38 @@
 // ============================
-// Obsidian header — solid near-black floating island
+// Beacon header (v0.6.0)
 //
-// v0.5.0: dropped glassmorphism. The header is now a solid #0A0A0F slab,
-// still floating with rounded corners and shoulder gap from the page edge.
-// White icons; magenta hover state pops against the dark surface.
+// Obsidian floating island, with three intent layers on the right:
+//   - AI bot   : HERO. Magenta-ringed circle, magenta robot, pulse dot.
+//   - Avatar   : ANCHOR. Larger circular avatar with sharp magenta ring.
+//   - Chat     : UTILITY. Soft tinted pill, slimmed.
 //
-// Air's color scheme sets header_background = #0A0A0F (see about.json),
-// so the .d-header element actually inherits the right background colour
-// from `var(--header-background)`. We add an explicit rule below so the
-// shape, border and shadow are ours regardless of which color scheme is
-// active during preview.
+// The header itself stays SHARP per brand register: solid obsidian, crisp
+// shadow, no glassmorphism, no soft halos, no gradient (the signature
+// gradient lives on the welcome banner only). The pulse animation is a
+// sharp scale + opacity beat — not a soft glow.
 // ============================
+
 .d-header-wrap {
   background: transparent;
   box-shadow: none;
 }
 
-// Specificity bump: Discourse base CSS sets `.d-header` background to
-// `var(--header-background)` at (0,0,1,0). Component CSS loads BEFORE base,
-// so equal specificity loses. Prefixing with `html body` lifts us to
-// (0,0,1,2), winning the cascade. This also makes the obsidian treatment
-// part of the brand identity rather than a color-scheme-derived value —
-// the header stays obsidian regardless of which scheme is active.
+// Specificity bump (`html body`) beats Discourse base `.d-header` rule.
+// v0.6.0: drop the matching-color border that previously left a faint seam
+// at the rounded corners — the bg + shadow already define the shape.
 html body .d-header {
   background: var(--je-text-main);
   border-radius: var(--d-default-border-radius);
   margin: 15px auto 0;
   width: calc(100% - 40px);
-  border: 1px solid var(--je-text-main);
+  border: none;
   box-shadow: var(--je-elevation-subtle);
   height: 65px;
   transition: box-shadow 0.2s ease;
 }
 
 // ============================
-// Header icons — white at rest, magenta on hover
+// Header icons — white at rest, magenta on hover (default for utility icons)
 // ============================
 .d-header .d-icon {
   color: var(--je-button-text-light);
@@ -47,19 +45,183 @@ html body .d-header {
   }
 }
 
-// Dropdown toggles — soft tinted pill on the dark surface
-.d-header-icons .header-dropdown-toggle {
+// ============================
+// Chat icon — utility, kept subtle and slimmer than the hero AI bot
+// ============================
+.d-header-icons .chat-header-icon {
   background: rgba(255, 255, 255, 0.06);
   border-radius: 50%;
-  padding: 8px;
-  margin-left: 10px;
   border: 1px solid rgba(255, 255, 255, 0.10);
+  padding: 6px;
+  margin-left: 8px;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
   transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+
+  > a {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   &:hover {
     background: rgba(255, 255, 255, 0.10);
     border-color: var(--je-accent-primary);
     transform: translateY(-1px);
+  }
+}
+
+// ============================
+// AI bot — the HERO icon. The Discourse AI plugin gives the robot SVG a
+// near-orange tint by default; we override that to brand magenta to make
+// the bot the only fully-saturated brand element in the header at rest.
+// ============================
+.d-header-icons li:has(> .ai-bot-button) {
+  // Pulse dot lives as an ::after on the LI so it sits over the corner of
+  // the button without disturbing button hit-targets.
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 12px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--je-accent-primary);
+    box-shadow: 0 0 0 2px var(--je-text-main); // sharp ring of header bg
+    animation: je-pulse-beacon 2.5s ease-in-out infinite;
+    pointer-events: none;
+  }
+}
+
+.d-header-icons .ai-bot-button.ai-bot-button.ai-bot-button {
+  // chained-class specificity bump (0,0,3,1) to beat the AI plugin's own
+  // color rule on `.ai-bot-button` (0,0,1,1) without resorting to !important.
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid var(--je-accent-primary);
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, border-color 0.2s ease,
+              transform 0.2s ease, box-shadow 0.2s ease;
+
+  .d-icon {
+    color: var(--je-accent-primary);
+    opacity: 1;
+    width: 22px;
+    height: 22px;
+    font-size: 22px;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+
+  &:hover {
+    background: var(--je-accent-primary);
+    border-color: var(--je-accent-primary);
+    transform: translateY(-1px);
+    box-shadow: var(--je-elevation-icon-hover);
+
+    .d-icon {
+      color: var(--je-button-text-light);
+      transform: scale(1.05);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--je-accent-primary);
+    outline-offset: 3px;
+  }
+}
+
+// ============================
+// Avatar — the personal ANCHOR. Larger, circular, magenta-ringed.
+// The sharp ring (solid border + offset shadow gap) replaces the rgba
+// "tinted pill" treatment used for utility icons.
+// ============================
+.d-header-icons #current-user.current-user {
+  background: transparent;
+  border: none;
+  margin-left: 14px;
+  width: auto;
+  height: auto;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+.d-header-icons #current-user #toggle-current-user {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+
+    img.avatar {
+      box-shadow: 0 0 0 2px var(--je-text-main),
+                  0 0 0 4px var(--je-accent-primary),
+                  var(--je-elevation-icon-hover);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--je-accent-primary);
+    outline-offset: 3px;
+  }
+
+  img.avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    // Two stacked shadows = sharp 2px obsidian gap then 2px magenta ring.
+    // No soft halo — both shadows are zero-blur.
+    box-shadow: 0 0 0 2px var(--je-text-main),
+                0 0 0 4px var(--je-accent-primary);
+    transition: box-shadow 0.2s ease;
+  }
+}
+
+// ============================
+// Pulse keyframe — sharp scale + opacity beat. No blur, no soft halo.
+// Marks the AI bot as alive without violating the SHARP register.
+// ============================
+@keyframes je-pulse-beacon {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 0.7;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .d-header-icons li:has(> .ai-bot-button)::after {
+    animation: none;
   }
 }
 
