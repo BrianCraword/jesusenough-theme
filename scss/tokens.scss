@@ -20,6 +20,8 @@
   --je-app-bg: #FFFFFF;               // pure white surface
   --je-card-bg: #FFFFFF;
   --je-button-text-light: #FFFFFF;
+  --je-header-bg: #F9F8FC;            // v0.7.0: light lavender-tinted header
+                                      // (lifted off pure white body for layering)
 
   // Magenta shades — handle hover/pressed/selected/faint via lightness
   --je-primary-deep: #B30F5C;         // hover/pressed for primary

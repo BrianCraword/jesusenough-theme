@@ -1,15 +1,20 @@
 // ============================
-// Beacon header (v0.6.0)
+// Beacon header (v0.7.0)
 //
-// Obsidian floating island, with three intent layers on the right:
+// LIGHT IDENTITY. The header flips from the v0.5–0.6 obsidian slab to a
+// pale lavender-tinted near-white (#F9F8FC), lifted subtly off the pure
+// white body so the bar still reads as its own surface. Less gravity,
+// more energy — and the magenta hairline at the bottom edge becomes a
+// far stronger brand statement on light than it was on dark.
+//
+// Three intent layers (unchanged from v0.6):
 //   - AI bot   : HERO. Magenta-ringed circle, magenta robot, pulse dot.
-//   - Avatar   : ANCHOR. Larger circular avatar with sharp magenta ring.
-//   - Chat     : UTILITY. Soft tinted pill, slimmed.
+//   - Avatar   : ANCHOR. Larger circular avatar, sharp magenta ring.
+//   - Chat     : UTILITY. Subtle dark-tinted pill (was rgba-white pill
+//                on the obsidian header).
 //
-// The header itself stays SHARP per brand register: solid obsidian, crisp
-// shadow, no glassmorphism, no soft halos, no gradient (the signature
-// gradient lives on the welcome banner only). The pulse animation is a
-// sharp scale + opacity beat — not a soft glow.
+// Brand register stays SHARP: no glassmorphism, no soft halos, solid
+// colors only. The 2px magenta hairline is the only header decoration.
 // ============================
 
 .d-header-wrap {
@@ -18,22 +23,14 @@
 }
 
 // Specificity bump (`html body`) beats Discourse base `.d-header` rule.
-// v0.6.0: drop the matching-color border that previously left a faint seam
-// at the rounded corners — the bg + shadow already define the shape.
-//
-// v0.6.1: solid magenta hairline at the bottom edge — the brand mark on
-// every page. The 28px border-radius arcs the line cleanly into the
-// bottom corners (sharp, not soft). This is the only place magenta
-// touches the header itself; everything else is the obsidian slab.
+// Magenta hairline beats theme_13's competing 1px discourse-orange
+// hairline (only place !important is required on this selector).
 html body .d-header {
-  background: var(--je-text-main);
+  background: var(--je-header-bg);
   border-radius: var(--d-default-border-radius);
   margin: 15px auto 0;
   width: calc(100% - 40px);
   border: none;
-  // theme_13 (Discourse AI Bot decoration component) sets
-  // `.d-header { border-bottom: 1px solid var(--discourse-orange) !important }`,
-  // competing for the bottom-edge brand hairline. Targeted !important to win.
   border-bottom: 2px solid var(--je-accent-primary) !important;
   box-shadow: var(--je-elevation-subtle);
   height: 65px;
@@ -41,10 +38,11 @@ html body .d-header {
 }
 
 // ============================
-// Header icons — white at rest, magenta on hover (default for utility icons)
+// Header icons — near-black at rest, magenta on hover.
+// (v0.6 had these as white on the obsidian; v0.7 flips for light bg.)
 // ============================
 .d-header .d-icon {
-  color: var(--je-button-text-light);
+  color: var(--je-text-main);
   opacity: 0.85;
   transition: opacity 0.2s ease, color 0.2s ease;
 
@@ -55,12 +53,12 @@ html body .d-header {
 }
 
 // ============================
-// Chat icon — utility, kept subtle and slimmer than the hero AI bot
+// Chat icon — utility, subtle dark-tinted pill on the light header.
 // ============================
 .d-header-icons .chat-header-icon {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(10, 10, 15, 0.04);
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(10, 10, 15, 0.08);
   padding: 6px;
   margin-left: 8px;
   width: 40px;
@@ -81,20 +79,17 @@ html body .d-header {
   }
 
   &:hover {
-    background: rgba(255, 255, 255, 0.10);
+    background: rgba(10, 10, 15, 0.06);
     border-color: var(--je-accent-primary);
     transform: translateY(-1px);
   }
 }
 
 // ============================
-// AI bot — the HERO icon. The Discourse AI plugin gives the robot SVG a
-// near-orange tint by default; we override that to brand magenta to make
-// the bot the only fully-saturated brand element in the header at rest.
+// AI bot — the HERO icon. Same brand-magenta treatment as v0.6, but
+// the pulse dot's "ring of header bg" is now light instead of obsidian.
 // ============================
 .d-header-icons li:has(> .ai-bot-button) {
-  // Pulse dot lives as an ::after on the LI so it sits over the corner of
-  // the button without disturbing button hit-targets.
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -110,22 +105,16 @@ html body .d-header {
     height: 8px;
     border-radius: 50%;
     background: var(--je-accent-primary);
-    box-shadow: 0 0 0 2px var(--je-text-main); // sharp ring of header bg
+    box-shadow: 0 0 0 2px var(--je-header-bg); // sharp ring of header bg
     animation: je-pulse-beacon 2.5s ease-in-out infinite;
     pointer-events: none;
   }
 }
 
 .d-header-icons .ai-bot-button.ai-bot-button.ai-bot-button {
-  // The Discourse AI Bot styling component (theme_13) sets `border-style:
-  // none !important`, `border-width: medium !important`, and `color:
-  // var(--discourse-orange) !important` on `.d-header .ai-bot-button` and
-  // its inner SVG. !important beats specificity, so the chained-class
-  // trick alone isn't enough — we need targeted !important to win back
-  // visual ownership of OUR brand-aligned bot treatment.
-  //
-  // Architecture rule: !important is permitted "one or two times where
-  // fighting a hostile component requires it." This is that case.
+  // theme_13 (Discourse AI Bot decoration) sets `border: none !important`
+  // and `color: var(--discourse-orange) !important` on .ai-bot-button.
+  // Targeted !important to win back ownership.
   width: 48px;
   height: 48px;
   padding: 0;
@@ -166,9 +155,9 @@ html body .d-header {
 }
 
 // ============================
-// Avatar — the personal ANCHOR. Larger, circular, magenta-ringed.
-// The sharp ring (solid border + offset shadow gap) replaces the rgba
-// "tinted pill" treatment used for utility icons.
+// Avatar — the personal ANCHOR. The ring's "gap" used to be obsidian
+// (matching the dark header); on the light header it's the header bg
+// itself, so the avatar still feels framed without competing.
 // ============================
 .d-header-icons #current-user.current-user {
   background: transparent;
@@ -197,7 +186,7 @@ html body .d-header {
     transform: translateY(-1px);
 
     img.avatar {
-      box-shadow: 0 0 0 2px var(--je-text-main),
+      box-shadow: 0 0 0 2px var(--je-header-bg),
                   0 0 0 4px var(--je-accent-primary),
                   var(--je-elevation-icon-hover);
     }
@@ -212,9 +201,10 @@ html body .d-header {
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    // Two stacked shadows = sharp 2px obsidian gap then 2px magenta ring.
-    // No soft halo — both shadows are zero-blur.
-    box-shadow: 0 0 0 2px var(--je-text-main),
+    // Two stacked zero-blur shadows = sharp 2px header-bg gap then 2px
+    // magenta ring. The avatar's photo carries its own contrast against
+    // the ring so the magenta still pops on light.
+    box-shadow: 0 0 0 2px var(--je-header-bg),
                 0 0 0 4px var(--je-accent-primary);
     transition: box-shadow 0.2s ease;
   }
@@ -222,7 +212,6 @@ html body .d-header {
 
 // ============================
 // Pulse keyframe — sharp scale + opacity beat. No blur, no soft halo.
-// Marks the AI bot as alive without violating the SHARP register.
 // ============================
 @keyframes je-pulse-beacon {
   0%, 100% {
@@ -242,7 +231,8 @@ html body .d-header {
 }
 
 // ============================
-// Menu panel (dropdowns from the header) — light surface, sits on dark header
+// Menu panel (dropdowns from the header) — light surface, sits below
+// the now-light header. Slightly stronger border to visually separate.
 // ============================
 .menu-panel.drop-down {
   border-radius: var(--d-default-border-radius);
