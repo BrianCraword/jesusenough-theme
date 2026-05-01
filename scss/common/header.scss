@@ -20,12 +20,18 @@
 // Specificity bump (`html body`) beats Discourse base `.d-header` rule.
 // v0.6.0: drop the matching-color border that previously left a faint seam
 // at the rounded corners — the bg + shadow already define the shape.
+//
+// v0.6.1: solid magenta hairline at the bottom edge — the brand mark on
+// every page. The 28px border-radius arcs the line cleanly into the
+// bottom corners (sharp, not soft). This is the only place magenta
+// touches the header itself; everything else is the obsidian slab.
 html body .d-header {
   background: var(--je-text-main);
   border-radius: var(--d-default-border-radius);
   margin: 15px auto 0;
   width: calc(100% - 40px);
   border: none;
+  border-bottom: 2px solid var(--je-accent-primary);
   box-shadow: var(--je-elevation-subtle);
   height: 65px;
   transition: box-shadow 0.2s ease;
@@ -108,14 +114,21 @@ html body .d-header {
 }
 
 .d-header-icons .ai-bot-button.ai-bot-button.ai-bot-button {
-  // chained-class specificity bump (0,0,3,1) to beat the AI plugin's own
-  // color rule on `.ai-bot-button` (0,0,1,1) without resorting to !important.
+  // The Discourse AI Bot styling component (theme_13) sets `border-style:
+  // none !important`, `border-width: medium !important`, and `color:
+  // var(--discourse-orange) !important` on `.d-header .ai-bot-button` and
+  // its inner SVG. !important beats specificity, so the chained-class
+  // trick alone isn't enough — we need targeted !important to win back
+  // visual ownership of OUR brand-aligned bot treatment.
+  //
+  // Architecture rule: !important is permitted "one or two times where
+  // fighting a hostile component requires it." This is that case.
   width: 48px;
   height: 48px;
   padding: 0;
   border-radius: 50%;
-  border: 2px solid var(--je-accent-primary);
-  background: transparent;
+  border: 2px solid var(--je-accent-primary) !important;
+  background: transparent !important;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -123,22 +136,22 @@ html body .d-header {
               transform 0.2s ease, box-shadow 0.2s ease;
 
   .d-icon {
-    color: var(--je-accent-primary);
+    color: var(--je-accent-primary) !important;
     opacity: 1;
-    width: 22px;
-    height: 22px;
-    font-size: 22px;
+    width: 28px;
+    height: 28px;
+    font-size: 28px;
     transition: color 0.2s ease, transform 0.2s ease;
   }
 
   &:hover {
-    background: var(--je-accent-primary);
-    border-color: var(--je-accent-primary);
+    background: var(--je-accent-primary) !important;
+    border-color: var(--je-accent-primary) !important;
     transform: translateY(-1px);
     box-shadow: var(--je-elevation-icon-hover);
 
     .d-icon {
-      color: var(--je-button-text-light);
+      color: var(--je-button-text-light) !important;
       transform: scale(1.05);
     }
   }
