@@ -58,4 +58,14 @@
       height: 40px;
     }
   }
+
+  // v0.6.2: Discourse's mobile header puts a second avatar inside
+  // #current-user via .avatar-profile-trigger (a separate menu trigger
+  // for profile/preferences). Two avatars side-by-side reads as broken.
+  // Hide the profile trigger — the user-menu (#toggle-current-user)
+  // already exposes profile links via its dropdown panel, so no
+  // functionality is lost.
+  .avatar-profile-trigger {
+    display: none !important;
+  }
 }

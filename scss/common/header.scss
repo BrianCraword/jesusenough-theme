@@ -31,7 +31,10 @@ html body .d-header {
   margin: 15px auto 0;
   width: calc(100% - 40px);
   border: none;
-  border-bottom: 2px solid var(--je-accent-primary);
+  // theme_13 (Discourse AI Bot decoration component) sets
+  // `.d-header { border-bottom: 1px solid var(--discourse-orange) !important }`,
+  // competing for the bottom-edge brand hairline. Targeted !important to win.
+  border-bottom: 2px solid var(--je-accent-primary) !important;
   box-shadow: var(--je-elevation-subtle);
   height: 65px;
   transition: box-shadow 0.2s ease;
